@@ -80,8 +80,7 @@ public class GUI extends Frame {
                 String computerChoice = generateCompChoice();
                 
                 // updates the text in TextArea result
-                setResults(playerChoice, computerChoice, winner(playerChoice, computerChoice));
-                
+                setResults(playerChoice, computerChoice, winner(playerChoice, computerChoice));  
             }
 	}
 	
@@ -179,6 +178,8 @@ public class GUI extends Frame {
         }
         
 	public static void main(String[] args){
+            // I couldn't understand on how the dialog works
+            
           //  Dialog dialog = new Dialog();
             
 //            if(cScore == 5 || pScore == 5){

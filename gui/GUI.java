@@ -86,7 +86,8 @@ public class GUI extends Frame {
 	}
 	
         /*
-         *   Increments the score of the winner, if 
+         *   Increments the score of the winner
+         *   If both the player and the computer have the same choice, then no one wins the round and the scores stay the same.
          */
         int winner(String playerChoice, String computerChoice){
             int cScoreTemp = cScore;
@@ -123,9 +124,14 @@ public class GUI extends Frame {
                 }
             
             }
+            
+            // Updates Score1 and Score2 contents
             Score1.setText(Integer.toString(pScore));
             Score2.setText(Integer.toString(cScore));
             
+            
+            // The cScoreTemp and pScoreTemp initialized at the beginning of this method is used here in order
+            // to find out who the winner of the round is; 1 stands for player and 2 stands for the computer
             if(cScore > cScoreTemp){
                 return 2;
             }else if(pScore > pScoreTemp){
@@ -135,6 +141,9 @@ public class GUI extends Frame {
             }
         }
         
+        /*
+         *  Generates the computer choice
+         */
 	String generateCompChoice(){
             int randNum = rand.nextInt((5 - 1) + 1) + 1;
             switch (randNum) {
@@ -151,7 +160,7 @@ public class GUI extends Frame {
             }
 	}
 	
-        
+        // Updates result's contents
         void setResults(String playerChoice, String computerChoice, int winner){
             result.setText("Results:\n" + "Player chose " + playerChoice 
                             + "\nComputer chose " + computerChoice);

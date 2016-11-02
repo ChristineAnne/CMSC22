@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import javax.swing.JButton;
 import javax.swing.Box;
 import javax.swing.JFrame;
@@ -54,7 +55,7 @@ public class Calculator {
     BigDecimal num1 = new BigDecimal("0");
     BigDecimal num2 = new BigDecimal("0");
     int oper = -1;
-    int percentage = 0;
+    BigDecimal percentage = new BigDecimal("0");
     BigDecimal place = new BigDecimal("1");
     
     public Calculator() {
@@ -76,7 +77,7 @@ public class Calculator {
         input.setPreferredSize(new Dimension(400, 90));
         panel.add(input, BorderLayout.NORTH);
         
-        // change font, size and background
+        // change font, size and background of buttons
         clear.setFont(new Font("Verdana", Font.BOLD, 15));
         clear.setBackground(Color.darkGray);
         clear.setForeground(Color.pink);
@@ -150,7 +151,7 @@ public class Calculator {
         button.setForeground(Color.orange);
     }
     
-	// the listeners
+    // adding actionListeners to the buttons
     private void action(){
         clear.addActionListener(new ClearListener());
         pn.addActionListener(new PNListener());
@@ -188,23 +189,21 @@ public class Calculator {
         }
     }
     
-    // i don't think its supposed to do this
+    
     class PercentListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e){
-            BigDecimal hundred = new BigDecimal("100");
-            percentage = num1.multiply(hundred).intValue();
             oper = 5;
-            input.setText(" " + Integer.toString(percentage));
+            place = new BigDecimal("1");
+            input.setText(" " + num1.toString() + " % ");
         }
     }
     
-	//makes the number negative
     class PNListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e){
             BigDecimal multiplyTwo = new BigDecimal("2");
-            if(oper < 0){ // meaning this is the first number, else, its the second number, 
+            if(oper < 0){
                 if(num1.intValue() > 0){
                     num1 = num1.subtract(num1.multiply(multiplyTwo));
                 }else if(num1.intValue() < 0){
@@ -223,7 +222,6 @@ public class Calculator {
         }
     }
     
-	//resets input
     class DivideListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e){
@@ -410,7 +408,7 @@ public class Calculator {
    class EqualsListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e){
-            input.setText(" " + num1.toString() + getOperator() + num2.toString() + " = " + getEquals());
+            input.setText(" " + num1.toString() + getOperator() + num2.toString() + " = " + getEquals().toString());
         }
     }
    
@@ -443,8 +441,23 @@ public class Calculator {
                product = num1.multiply(num2);
                return product;
            case 4:
+               try{
+                   int comparison = num1.compareTo(num2);
+                   if(comparison == -1){
+                       quotient = num1.divide(num2, 2, RoundingMode.HALF_UP);
+                   }else{
+                       if(num1.remainder(num2).equals(BigDecimal.ZERO))
+                           quotient = num1.divide(num2);
+                       else
+                           quotient = num1.divide(num2, 2, RoundingMode.HALF_UP);
+                   }
+               }catch(ArithmeticException e){
+                   quotient = null;
+               }
                quotient = num1.divide(num2);
                return quotient;
+           case 5:
+               percentage = num1.multiply(num2).divide(new BigDecimal(100));
            default:
                return empty;
        }

@@ -19,7 +19,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 /**
- *  created by Christine Anne Catubig
+ *  created by Christine Anne Ibo Catubig
  */
 
 public class Calculator {
@@ -408,7 +408,12 @@ public class Calculator {
    class EqualsListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e){
-            input.setText(" " + num1.toString() + getOperator() + num2.toString() + " = " + getEquals().toString());
+            input.setText(" " + num1.toString() + getOperator() + num2.toString() + " = " + String.valueOf(getEquals()));
+            sum = null;
+            difference = null;
+            product = null;
+            quotient = null;
+            percentage = null;
         }
     }
    
@@ -428,6 +433,7 @@ public class Calculator {
        }
    }
    
+   // returns sum/difference/product/quotient/percentage of the two numbers whichever fits the operation
    private BigDecimal getEquals(){ // doesnt work
        BigDecimal empty = new BigDecimal("");
        switch(oper){

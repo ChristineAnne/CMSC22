@@ -19,7 +19,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 /**
- *  created by Christine Anne Ibo Catubig
+ *  created by Christine Anne Catubig
  */
 
 public class Calculator {
@@ -398,10 +398,17 @@ public class Calculator {
         }
     }
    
-   class PointListener implements ActionListener {
+   class PointListener implements ActionListener { 
         @Override
         public void actionPerformed(ActionEvent e){
-            //i ran out of time
+            String tmp;
+            if(oper < 0){
+                tmp = point.getText() + num1.toString();
+                num1 = (new BigDecimal(tmp));
+            }else{
+                tmp = point.getText() + num2.toString();
+                num2 = (new BigDecimal(tmp));
+            }
         }
     }
    

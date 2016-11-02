@@ -150,6 +150,7 @@ public class Calculator {
         button.setForeground(Color.orange);
     }
     
+	// the listeners
     private void action(){
         clear.addActionListener(new ClearListener());
         pn.addActionListener(new PNListener());
@@ -187,7 +188,7 @@ public class Calculator {
         }
     }
     
-    
+    // i don't think its supposed to do this
     class PercentListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e){
@@ -198,11 +199,12 @@ public class Calculator {
         }
     }
     
+	//makes the number negative
     class PNListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e){
             BigDecimal multiplyTwo = new BigDecimal("2");
-            if(oper < 0){
+            if(oper < 0){ // meaning this is the first number, else, its the second number, 
                 if(num1.intValue() > 0){
                     num1 = num1.subtract(num1.multiply(multiplyTwo));
                 }else if(num1.intValue() < 0){
@@ -221,6 +223,7 @@ public class Calculator {
         }
     }
     
+	//resets input
     class DivideListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e){

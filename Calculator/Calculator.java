@@ -8,10 +8,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.RoundingMode;
 import javax.swing.JButton;
-import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -57,6 +55,8 @@ public class Calculator {
     int oper = -1;
     BigDecimal percentage = new BigDecimal("0");
     BigDecimal place = new BigDecimal("1");
+
+    Boolean pointed = false;
     
     public Calculator() {
         JFrame frame = new JFrame("Simple Calculator");
@@ -66,7 +66,7 @@ public class Calculator {
         frame.setContentPane(panel);
         
         JPanel buttons = new JPanel(new GridLayout(5,4));
-        
+
         input = new JTextField(" ");
         input.setEditable(false);
         input.setBackground(Color.darkGray);
@@ -131,8 +131,7 @@ public class Calculator {
         frame.setSize(300, 400);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
         
         action();
     }
@@ -185,10 +184,10 @@ public class Calculator {
             quotient = new BigDecimal("0");
             product = new BigDecimal("0");
             oper = -1;
+            place = new BigDecimal("1");
             input.setText("");
         }
     }
-    
     
     class PercentListener implements ActionListener {
         @Override
@@ -217,8 +216,7 @@ public class Calculator {
                     num2 = num2.add(num2.multiply(multiplyTwo));
                 }
                 input.setText(" " + num1.toString() + getOperator() + num2.toString());
-            }
-            
+            }   
         }
     }
     
@@ -261,6 +259,9 @@ public class Calculator {
     class OneListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e){
+            if(pointed){
+                
+            }
             if(oper < 0){
                 num1 = num1.multiply(place).add(new BigDecimal("1"));
                 input.setText(" " + num1.toString());
@@ -268,7 +269,9 @@ public class Calculator {
                 num2 = num2.multiply(place).add(new BigDecimal("1"));
                 input.setText(" " + num1.toString() + " " + getOperator() + " " + num2.toString());
             }
-            place = place.multiply(new BigDecimal("10"));
+            if(Integer.parseInt(place.toString()) < 3){
+                place = place.multiply(new BigDecimal("10"));
+            }
         }
     }
     
@@ -282,7 +285,9 @@ public class Calculator {
                 num2 = num2.multiply(place).add(new BigDecimal("2"));
                 input.setText(" " + num1.toString() + " " + getOperator() + " " + num2.toString());
             }
-            place = place.multiply(new BigDecimal("10"));
+            if(Integer.parseInt(place.toString()) < 3){
+                place = place.multiply(new BigDecimal("10"));
+            }
         }
     }
     
@@ -296,7 +301,9 @@ public class Calculator {
                 num2 = num2.multiply(place).add(new BigDecimal("3"));
                 input.setText(" " + num1.toString() + " " + getOperator() + " " + num2.toString());
             }
-            place = place.multiply(new BigDecimal("10"));
+            if(Integer.parseInt(place.toString()) < 3){
+                place = place.multiply(new BigDecimal("10"));
+            }
         }
     }
     
@@ -310,7 +317,9 @@ public class Calculator {
                 num2 = num2.multiply(place).add(new BigDecimal("4"));
                 input.setText(" " + num1.toString() + " " + getOperator() + " " + num2.toString());
             }
-            place = place.multiply(new BigDecimal("10"));
+            if(Integer.parseInt(place.toString()) < 3){
+                place = place.multiply(new BigDecimal("10"));
+            }
         }
     }
     
@@ -324,7 +333,9 @@ public class Calculator {
                 num2 = num2.multiply(place).add(new BigDecimal("5"));
                 input.setText(" " + num1.toString() + " " + getOperator() + " " + num2.toString());
             }
-            place = place.multiply(new BigDecimal("10"));
+            if(Integer.parseInt(place.toString()) < 3){
+                place = place.multiply(new BigDecimal("10"));
+            }
         }
     }
     
@@ -338,7 +349,9 @@ public class Calculator {
                 num2 = num2.multiply(place).add(new BigDecimal("6"));
                 input.setText(" " + num1.toString() + " " + getOperator() + " " + num2.toString());
             }
-            place = place.multiply(new BigDecimal("10"));
+            if(Integer.parseInt(place.toString()) < 3){
+                place = place.multiply(new BigDecimal("10"));
+            }
         }
     }
     
@@ -352,7 +365,9 @@ public class Calculator {
                 num2 = num2.multiply(place).add(new BigDecimal("7"));
                 input.setText(" " + num1.toString() + " " + getOperator() + " " + num2.toString());
             }
-            place = place.multiply(new BigDecimal("10"));
+            if(Integer.parseInt(place.toString()) < 3){
+                place = place.multiply(new BigDecimal("10"));
+            }
         }
     }
     
@@ -366,7 +381,9 @@ public class Calculator {
                 num2 = num2.multiply(place).add(new BigDecimal("8"));
                 input.setText(" " + num1.toString() + " " + getOperator() + " " + num2.toString());
             }
-            place = place.multiply(new BigDecimal("10"));
+            if(Integer.parseInt(place.toString()) < 3){
+                place = place.multiply(new BigDecimal("10"));
+            }
         }
     }
     
@@ -377,10 +394,14 @@ public class Calculator {
                 num1 = num1.multiply(place).add(new BigDecimal("9"));
                 input.setText(" " + num1.toString());
             } else{
-                num2 = num2.multiply(place).add(new BigDecimal("9"));
+
+</body>
+</html>                num2 = num2.multiply(place).add(new BigDecimal("9"));
                 input.setText(" " + num1.toString() + " " + getOperator() + " " + num2.toString());
             }
-            place = place.multiply(new BigDecimal("10"));
+            if(Integer.parseInt(place.toString()) < 3){
+                place = place.multiply(new BigDecimal("10"));
+            }
         }
     }
    
@@ -394,7 +415,9 @@ public class Calculator {
                 num2 = num2.multiply(place);
                 input.setText(" " + num1.toString() + " " + getOperator() + " " + num2.toString());
             }
-            place = place.multiply(new BigDecimal("10"));
+            if(Integer.parseInt(place.toString()) < 3){
+                place = place.multiply(new BigDecimal("10"));
+            }
         }
     }
    
@@ -405,9 +428,11 @@ public class Calculator {
             if(oper < 0){
                 tmp = point.getText() + num1.toString();
                 num1 = (new BigDecimal(tmp));
+                pointed = true;
             }else{
                 tmp = point.getText() + num2.toString();
                 num2 = (new BigDecimal(tmp));
+                pointed = true;
             }
         }
     }
@@ -427,22 +452,23 @@ public class Calculator {
    // returns operator
    private String getOperator(){
        switch(oper){
-           case 1:
-               return " + ";
-           case 2:
-               return " - ";
-           case 3:
-               return " * ";
-           case 4:
+            case 1:
+                return " + ";
+            case 2:
+                return " - ";
+            case 3:
+                return " * ";
+            case 4:
                return " / ";
+            case 5:
+                return " % ";
            default:
                return " ";
        }
    }
    
    // returns sum/difference/product/quotient/percentage of the two numbers whichever fits the operation
-   private BigDecimal getEquals(){ // doesnt work
-       BigDecimal empty = new BigDecimal("");
+   private BigDecimal getEquals(){ 
        switch(oper){
            case 1:
                sum = num1.add(num2);
@@ -471,8 +497,9 @@ public class Calculator {
                return quotient;
            case 5:
                percentage = num1.multiply(num2).divide(new BigDecimal(100));
+               return percentage;
            default:
-               return empty;
+               return new BigDecimal("0");
        }
    } 
    
